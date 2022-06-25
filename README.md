@@ -2,9 +2,11 @@
 
 ## Introduction
 A pytorch implementation of PRS-Net, a research work on TVCG by Lin Gao et al.
+
 Official link: http://geometrylearning.com/prs-net/
 
 Author: D-Hank
+
 Feel free to contact me at [daihankun19@mails.ucas.ac.cn](daihankun19@mails.ucas.ac.cn). To use my code, please cite the link of this repository.
 
 ## Dependencies
@@ -21,7 +23,7 @@ point_cloud_utils: read and write obj files {https://github.com/fwilliams/point-
 
 Mayavi / matplotlib: visualization {http://docs.enthought.com/mayavi/mayavi/}
 
-**Note: ** The library cuda voxelizer should be localized for our model. We include the revised version in the directory `extern/`
+** Note:** The library cuda voxelizer should be localized for our model. We include the revised version in the directory `extern/`
 
 ## Directory
 
