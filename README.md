@@ -26,6 +26,7 @@ Mayavi / matplotlib: visualization {http://docs.enthought.com/mayavi/mayavi/}
 ## Directory
 
 The project directory should be organized like this:
+```
 
 ├── augment      # dataset after augmentation
 
@@ -42,6 +43,7 @@ The project directory should be organized like this:
 			├── checkpoint     # saved models
 
 			└── ……
+```
 
 ## Running Tips
 
