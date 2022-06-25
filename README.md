@@ -51,7 +51,7 @@ Change your working directory to `prsnet-repr`. About 3 days and 80 GB free spac
 
 To run this project from the start, first run `python augment.py` to generate augmented data. It takes one day to run on CPU.
 
-Then run `python preprocess.py` to generate voxel, point cloud and closest points. We use 4 processes to run simultaneously, which takes around 2 days with CUDA acceleration.
+Then run `python preprocess.py` to generate voxel, point cloud and closest points. We use 4 processes to run simultaneously, which takes around 2 days with CUDA acceleration. After that, run `python check.py` to check the completeness of data and generate bad model list.
 
 Finally use `python main.py` to run the main program. It takes 0.5 hour to train.
 
