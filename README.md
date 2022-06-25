@@ -11,19 +11,19 @@ Feel free to contact me at [daihankun19@mails.ucas.ac.cn](daihankun19@mails.ucas
 
 ## Dependencies
 
-PCL 1.12.1: generate point cloud (poisson disk) {https://pointclouds.org/}
+PCL 1.12.1: generate point cloud (poisson disk) {[https://pointclouds.org/](https://pointclouds.org/)}
 
-cuda_voxelizer: generate voxel (mesh split) {https://github.com/Forceflow/cuda_voxelizer}
+cuda_voxelizer: generate voxel (mesh split) {[https://github.com/Forceflow/cuda_voxelizer](https://github.com/Forceflow/cuda_voxelizer)}
 
-Open3D: read pcd file in Python {http://www.open3d.org/}
+Open3D: read pcd file in Python {[http://www.open3d.org/](http://www.open3d.org/)}
 
-Libigl: compute closest points on the mesh (barycentric coordinates) {https://github.com/libigl/libigl-python-bindings}
+Libigl: compute closest points on the mesh (barycentric coordinates) {[https://github.com/libigl/libigl-python-bindings](https://github.com/libigl/libigl-python-bindings)}
 
-point_cloud_utils: read and write obj files {https://github.com/fwilliams/point-cloud-utils}
+point_cloud_utils: read and write obj files {[https://github.com/fwilliams/point-cloud-utils](https://github.com/fwilliams/point-cloud-utils)}
 
-Mayavi / matplotlib: visualization {http://docs.enthought.com/mayavi/mayavi/}
+Mayavi / matplotlib: visualization {[http://docs.enthought.com/mayavi/mayavi/](http://docs.enthought.com/mayavi/mayavi/)}
 
-** Note:** The library cuda voxelizer should be localized for our model. We include the revised version in the directory `extern/`
+**Note**: The library cuda voxelizer should be localized for our model. We include the revised version in the directory `extern/`
 
 ## Directory
 
