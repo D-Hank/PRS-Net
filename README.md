@@ -28,12 +28,19 @@ Mayavi / matplotlib: visualization {http://docs.enthought.com/mayavi/mayavi/}
 The project directory should be organized like this:
 
 ├── augment      # dataset after augmentation
+
 ├── data         # dataset after preprocess
+
 ├── shapenet     # original shapenet data
+
 			├── 02691156
+
 			└── ……
+
 └── prsnet-repr  # main working directory
+
 			├── checkpoint     # saved models
+
 			└── ……
 
 ## Running Tips
