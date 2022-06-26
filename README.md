@@ -82,7 +82,7 @@ For generalized objects, the rotation axis:
   <img src="teaser/rotloss.jpg" width=400px />
 
   After training for a long time, the network can get lazy for rotation. Our solution is to limit the rotation angle in a certain range, say π/6 ~ π. And there's a little revision in `forward` method of class `MLPHead`. We replace `rot_out` in line 92 of `model.py` by:
-  ```
+  ```python
   lim_rot = torch.cat((torch.clamp(rot_out[ : , : , 0], self.min_cos, self.max_cos).unsqueeze(-1), rot_out[ : , : , 1 : ]), dim = -1)
   rot_out = functional.normalize(lim_rot, p = 2, dim = 2, eps = 1e-12)
   ```
@@ -92,7 +92,7 @@ For generalized objects, the rotation axis:
   
   <img src="teaser/rotloss_new.jpg" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0_old.gif" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r_old.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r.gif" width=20% />
 
-               Figure 1                    Figure 2                    Figure 3              Figure 4                     Figure 5
+      Figure 1       Figure 2         Figure 3           Figure 4              Figure 5
 
 ## Acknowledgement
 
