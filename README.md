@@ -48,7 +48,7 @@ To run this project from the start, first run `python augment.py` to generate au
 
 Then run `python preprocess.py` to generate voxel, point cloud and closest points. We use 4 processes to run simultaneously, which takes around 2 days with CUDA acceleration. After that, run `python check.py` to check the completeness of data and generate bad model list.
 
-Finally use `python main.py` to run the main program. It takes 0.5 hour to train.
+Finally use `python main.py` to run the main program (train + test). It takes 0.5 hour to train.
 
 If you'd like to use the pre-trained model in `checkpoint/`, then set `CONTINUE_` in `settings.py` to be True and run `main.py` directly.
 
@@ -67,7 +67,7 @@ For generalized objects, the rotation axis:
 
 <img src="teaser/a02828884_cd052cd64a9f956428baa2ac864e8e40_0_r.gif" width=20% /><img src="teaser/a02880940_a0ac0c76dbb4b7685430c0f7a585e679_0_r.gif" width=20% /><img src="teaser/a02933112_73c2405d760e35adf51f77a6d7299806_0_r.gif" width=20% /><img src="teaser/a03691459_23efeac8bd7132ffb96d0ef27244d1aa_0_r.gif" width=20% /><img src="teaser/a04379243_6af7f1e6035abb9570c2e04669f9304e_0_r.gif" width=20% />
 
-## Limitations
+## Limitations and Improvement
 
 - Position of the rotation axes
 
@@ -77,11 +77,22 @@ For generalized objects, the rotation axis:
 
 - Problems with axis-angle representation
 
-  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be 0 or 2π. Then both the distance and regularized loss will be relatively low. So sometimes the training rotation loss looks like:
+  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be 0 or 2π. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
 
   <img src="teaser/rotloss.jpg" width=400px />
 
-  After training for a long time, the network can get lazy for rotation. But there seems no good way to solve this.
+  After training for a long time, the network can get lazy for rotation. Our solution is to limit the rotation angle in a certain range, say π/6 ~ π. And there's a little revision in `forward` method of class `MLPHead`. We replace `rot_out` in line 92 of `model.py` by:
+  ```
+  lim_rot = torch.cat((torch.clamp(rot_out[ : , : , 0], self.min_cos, self.max_cos).unsqueeze(-1), rot_out[ : , : , 1 : ]), dim = -1)
+  rot_out = functional.normalize(lim_rot, p = 2, dim = 2, eps = 1e-12)
+  ```
+  where we set `self.min_cos = np.cos(np.pi / 2)` and `self.max_cos = np.cos(np.pi / 6 / 2)` in MLPHead's constructor.
+  
+  Then the rotational sde won't collapse after several hours of training. We gain a more reasonable training loss (Fig1) and prediction for some categories than the original one (Fig2 vs. Fig3, Fig4 vs. Fig5).
+  
+  <img src="teaser/rotloss_new.jpg" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0_old.gif" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r_old.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r.gif" width=20% />
+
+               Figure 1                    Figure 2                    Figure 3              Figure 4                     Figure 5
 
 ## Acknowledgement
 
