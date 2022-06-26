@@ -281,12 +281,17 @@ class PRSRunner():
 
             iter = 0
             for index, (closest, sample, voxel, label) in loop:
+                start_sec = time.time()
                 closest = closest.to(device)
                 sample = sample.to(device)
                 voxel = voxel.to(device)
                 plane_params, rot_params = self.model(voxel)
 
                 total_loss, loss_dict = self.model.get_loss(sample, plane_params, rot_params, closest)
+
+                end_sec = time.time()
+                total_sec += (end_sec - start_sec)
+                start_sec = end_sec
 
                 log_dict = {
                     "total_loss": total_loss,
@@ -314,4 +319,6 @@ class PRSRunner():
                     self.visual_save(0, label[0])
 
                 iter += 1
+
+        print("INFERENCE: ", total_sec / self.test_dataset.num_obj * 1000, " ms per obj.")
 
