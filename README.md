@@ -88,11 +88,14 @@ For generalized objects, the rotation axis:
   ```
   where we set `self.min_cos = np.cos(np.pi / 2)` and `self.max_cos = np.cos(np.pi / 6 / 2)` in MLPHead's constructor.
   
-  Then the rotational sde won't collapse after several hours of training. We gain a more reasonable training loss (Fig 1) and prediction for some categories than the original one (Fig 3 vs. Fig 2, Fig 5 vs. Fig 4).
+  Then the rotational sde won't collapse after several hours of training. We gain a more reasonable training loss (Fig 1) 
   
-  <img src="teaser/rotloss_new.jpg" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0_old.gif" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r_old.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r.gif" width=20% />
+  <img src="teaser/rotloss_new.jpg" width=400px />
+  
+  and prediction for some categories than the original one (old is on the left, new on the right).
+  
+  <img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0_old.gif" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r_old.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r.gif" width=20% />
 
-      Figure 1           Figure 2 (old)          Figure 3 (new)           Figure 4 (old)            Figure 5 (new)
 
 ## Acknowledgement
 
