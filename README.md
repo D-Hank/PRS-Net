@@ -96,7 +96,7 @@ For generalized objects, the rotation axis:
 
 - Problems with axis-angle representation
 
-  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be  ${0}$ or ${2 \pi}$. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
+  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be $0$  or $2 \pi$. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
 
   <img src="teaser/rotloss.jpg" width=400px />
 
