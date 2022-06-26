@@ -40,6 +40,25 @@ The project directory should be organized like this:
 	└── ……
 ```
 
+## Architecture
+
+We organize the project as below (arrow `->` denotes the workflow).
+
+```
+  ----------------                                 --------------------------------------
+  |  Preprocess  |  --------------------------->   |             PRSRunner              |
+  ----------------                                 --------------------------------------
+                                                         |                          |
+                                                         |                          |
+                                  ----------------------------------        ---------------------
+                                  |            PRSModel            |   -->  |    Visualization  |
+                                  ----------------------------------        ---------------------
+                                   |          |         |         |
+                             ---------  ---------  -----------  --------
+                             |network|->|mlphead|->|transform|->| loss |
+                             ---------  ---------  -----------  --------
+```
+
 ## Running Tips
 
 Change your working directory to `prsnet-repr`. About 3 days and 80 GB free space are required. You can set the default options in `settings.py`.
@@ -50,7 +69,7 @@ Then run `python preprocess.py` to generate voxel, point cloud and closest point
 
 Finally use `python main.py` to run the main program (train + test). It takes 0.5 hour to train.
 
-If you'd like to use the pre-trained model in `checkpoint/`, then set `CONTINUE_` in `settings.py` to be True and run `main.py` directly.
+If you'd like to use the pre-trained model in `checkpoint/`, then set `CONTINUE` in `settings.py` to be True and run `main.py` directly.
 
 ## Results
 
@@ -88,11 +107,11 @@ For generalized objects, the rotation axis:
   ```
   where we set `self.min_cos = np.cos(np.pi / 2)` and `self.max_cos = np.cos(np.pi / 6 / 2)` in MLPHead's constructor.
   
-  Then the rotational sde won't collapse after several hours of training. We gain a more reasonable training loss (Fig 1) 
+  Then the rotational sde won't collapse after several hours of training, after which we gain a more reasonable training loss (below) 
   
   <img src="teaser/rotloss_new.jpg" width=400px />
   
-  and prediction for some categories than the original one (old is on the left, new on the right).
+  and more satisfying predictions for some categories than the original one (old on the left, new on the right).
   
   <img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0_old.gif" width=20% /><img src="teaser/a03325088_a1bf1c47f2d36f71b362845c6edb57fc_0.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r_old.gif" width=20% /><img src="teaser/a03261776_a501174de50b9e675bdc2c2f4721bcd_0_r.gif" width=20% />
 
