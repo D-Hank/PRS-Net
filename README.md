@@ -90,17 +90,17 @@ For generalized objects, the rotation axis:
 
 - Position of the rotation axes
 
-  Motivated by [YuzhuoChen99](https://github.com/YizhuoChen99/PRS-Net)'s implementation, the model can only predict rotation axes near the original point. Even for the already-normalized shapenet dataset, the rotational center is not always near the origin. Therefore the model performs not so well (sometimes disturbed).
+  Motivated by [YuzhuoChen99](https://github.com/YizhuoChen99/PRS-Net)'s implementation, the model can only predict rotation axes near the original point. Even for the already-normalized shapenet dataset, the rotational center is not always near the origin. Therefore the model performs not so well (sometimes disturbed) in some categories.
 
   The solution is to introduce a shift vector or use the generalized 4×4 rotation matrix.
 
 - Problems with axis-angle representation
 
-  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be 0 or 2π. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
+  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be  ${0}$ or ${2 \pi}$. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
 
   <img src="teaser/rotloss.jpg" width=400px />
 
-  After training for a long time, the network can get lazy for rotation. Our solution is to limit the rotation angle in a certain range, say π/6 ~ π. And there's a little revision in `forward` method of class `MLPHead`. We replace `rot_out` in line 92 of `model.py` by:
+  After training for a long time, the network can get lazy for rotation. Our solution is to limit the rotation angle in a certain range, say ${\[\pi / 6, \pi\]}$. And there's a little revision in `forward` method of class `MLPHead`. We replace `rot_out` in line 92 of `model.py` by:
   ```python
   lim_rot = torch.cat((torch.clamp(rot_out[ : , : , 0], self.min_cos, self.max_cos).unsqueeze(-1), rot_out[ : , : , 1 : ]), dim = -1)
   rot_out = functional.normalize(lim_rot, p = 2, dim = 2, eps = 1e-12)
