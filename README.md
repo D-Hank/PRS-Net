@@ -67,7 +67,7 @@ To run this project from the start, first run `python augment.py` to generate au
 
 Then run `python preprocess.py` to generate voxel, point cloud and closest points. We use 4 processes to run simultaneously, which takes around 2 days with CUDA acceleration. After that, run `python check.py` to check the completeness of data and generate bad model list.
 
-Finally use `python main.py` to run the main program (train + test). It takes 0.5 hour to train.
+Finally use `python main.py` to run the main program (train + test). It takes 0.5 hour to train. And for inference, the speed is around 2.3 ms per obj on laptop with entry-level GPU MX250.
 
 If you'd like to use the pre-trained model in `checkpoint/`, then set `CONTINUE` in `settings.py` to be True and run `main.py` directly.
 
@@ -96,7 +96,7 @@ For generalized objects, the rotation axis:
 
 - Problems with axis-angle representation
 
-  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be $0$  or $2 \pi$. Then both the distance and regularized loss will be relatively low (it's truly global minima). So sometimes the training rotation loss looks like:
+  Basically, the network can learn to use tricks for better performance. That is, it can randomly pick three orthogonal axes and set the rotational angle to be $0$  or $2 \pi$. Then both the distance and regularized loss will be relatively low (it's truly a global minima, but there seems no mechanism to avoid this in the official release). So sometimes the training rotation loss looks like:
 
   <img src="teaser/rotloss.jpg" width=400px />
 
@@ -122,6 +122,6 @@ Quaternion: tiny reimplementation of pytorch3D for Quaternion
 
 Pairwise-Cosine: https://github.com/pytorch/pytorch/issues/11202
 
-Reference: He Yue's implementation {https://github.com/hysssb/PRS_net}
+Reference: He Yue's implementation {[https://github.com/hysssb/PRS_net](https://github.com/hysssb/PRS_net)}
 
-Reference: official release {https://github.com/IGLICT/PRS-Net}
+Reference: official release {[https://github.com/IGLICT/PRS-Net](https://github.com/IGLICT/PRS-Net)}
