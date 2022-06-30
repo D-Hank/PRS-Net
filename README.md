@@ -1,7 +1,7 @@
 # PRS-Net
 
 ## Introduction
-A pytorch implementation of PRS-Net, a research work on TVCG by Lin Gao et al.
+A pytorch implementation of PRS-Net, a research work to detect planar reflective symmetry published on TVCG by Lin Gao et al.
 
 Official link: http://geometrylearning.com/prs-net/
 
